@@ -17,6 +17,7 @@ def update
                             title: "Goals Scored"})
 end
 
+update()
 SCHEDULER.every '15m' do
   update()
 end

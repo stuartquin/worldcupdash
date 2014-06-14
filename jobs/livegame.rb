@@ -24,6 +24,7 @@ def update
                           away_image: "/" + away+ ".png",
                           away_score: 0,})
 end
+
 update()
 SCHEDULER.every '15m' do
   update()

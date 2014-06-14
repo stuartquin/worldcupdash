@@ -13,6 +13,7 @@ def update
                         title: "Predicted Winner"})
 end
 
+update()
 SCHEDULER.every '15m' do
   update()
 end

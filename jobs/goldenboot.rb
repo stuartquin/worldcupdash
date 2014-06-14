@@ -13,6 +13,7 @@ def update
                             title: "Top Scorer"})
 end
 
+update()
 SCHEDULER.every '15m' do
   update()
 end
