@@ -1,0 +1,19 @@
+<div class="match-info">
+  <div class="left-col">
+    <p>
+      <img data-bind-src="home_image | prepend '/assets'" data-bind-width="width"/>
+      <span class="team-name" data-bind="home_name"></span>
+      <span class="score" data-bind="home_score"></span>
+    </p>
+    <p class="vs">
+    VS.
+    </p>
+    <p>
+      <img data-bind-src="away_image | prepend '/assets'" data-bind-width="width"/>
+      <span class="team-name" data-bind="away_name"></span>
+      <span class="score" data-bind="away_score"></span>
+    </p>
+    
+    <p class="updated-at" data-bind="updatedAtMessage"></p>
+  </div>
+</div>

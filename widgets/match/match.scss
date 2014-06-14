@@ -1,0 +1,49 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$background-color:  #ec663c;
+
+$title-color:       rgba(255, 255, 255, 0.7);
+$moreinfo-color:    rgba(255, 255, 255, 0.7);
+
+
+// ----------------------------------------------------------------------------
+// Widget-text styles
+// ----------------------------------------------------------------------------
+.match-info {
+  text-align: left !important;
+}
+
+.left-col, .right-col {
+    width:30%;
+    float: left;
+}
+
+.vs {
+  margin: 25px;
+}
+
+.widget-text {
+  background-color: $background-color;
+
+
+  .title {
+    color: $title-color;
+  }
+
+  .more-info {
+    color: $moreinfo-color;
+  }
+
+  .updated-at {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .team-name {
+    
+  }
+
+  &.large h3 {
+    font-size: 65px;
+  }
+}
