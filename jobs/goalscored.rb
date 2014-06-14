@@ -3,7 +3,9 @@ require 'nokogiri'
 require 'open-uri'
 require 'json'
 
-res = open('http://worldcup.kimonolabs.com/api/teams?sort=goalsFor,-1&fields=name,goalsFor&apikey=9da69d4c4308c3f6ad17a8fe49dc7cde')
+api_key = ENV["KIMONO_KEY"]
+
+res = open("http://worldcup.kimonolabs.com/api/teams?sort=goalsFor,-1&fields=name,goalsFor&apikey=#{api_key}")
 data = JSON.parse(res.read).first
 
 country = data["name"]
