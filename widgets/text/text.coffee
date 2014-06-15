@@ -7,8 +7,9 @@ class Dashing.Text extends Dashing.Widget
     "italy": "#0000FF"
     "uruguay": "#4B8CC1"
     "argentina": "#75C5F0"
+    "honduras": "#FFFFFF"
 
-  @inverse = ["brazil", "england", "argentina"]
+  @inverse = ["brazil", "england", "argentina", "honduras"]
 
   onData: (data) ->
     country = data.country.toLowerCase()
