@@ -8,14 +8,16 @@ def update
   doc = Nokogiri::HTML(open('http://en.m.wikipedia.org/wiki/2014_FIFA_World_Cup_statistics'))
   rows = doc.css('ul li')
   country = nil
+  time = nil
 
   rows.each do |row|
     if row.text.strip.start_with?('Fastest goal in a match from kickoff')
-      country = row.text.match( /for\s(.*)\sagainst/)[1]
+      time = row.css("b").text.strip
+      country = row.css("a")[1].text.strip
     end
   end
 
-  send_event('fastestgoal', {text: country,
+  send_event('fastestgoal', {text: time + " (" + country + ")",
                              country: country,
                              image: "/" + country + ".png",
                              title: "Fastest Goal"})
