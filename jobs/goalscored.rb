@@ -2,14 +2,18 @@
 require 'nokogiri'
 require 'open-uri'
 require 'json'
+require 'logger'
+logger = Logger.new(STDOUT)
 
 
-def update
+def update logger
   api_key = ENV["KIMONO_KEY"]
   res = open("http://worldcup.kimonolabs.com/api/teams?sort=goalsFor,-1&fields=name,goalsFor&apikey=#{api_key}")
   data = JSON.parse(res.read).first
 
   country = data["name"]
+  logger.info("Goals Scored #{country}")
+
   text = data["goalsFor"].to_s + " - " + country
   send_event('goalscored', {text: text,
                             country: country,
@@ -17,7 +21,7 @@ def update
                             title: "Goals Scored"})
 end
 
-update()
+update(logger)
 SCHEDULER.every '15m' do
-  update()
+  update(logger)
 end

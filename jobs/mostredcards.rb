@@ -1,10 +1,10 @@
 #!/bin/ruby
 require 'nokogiri'
 require 'open-uri'
+require 'logger'
+logger = Logger.new(STDOUT)
 
-# Get a Nokogiri::HTML::Document for the page we’re interested in...
-
-def update
+def update logger
   doc = Nokogiri::HTML(open('http://en.m.wikipedia.org/wiki/List_of_FIFA_World_Cup_red_cards'))
 
   rows = doc.css('.wikitable tr')
@@ -21,6 +21,9 @@ def update
   sorted = counts.sort_by {|_key, value| value}
   winner = sorted.last
   country = winner[0]
+
+  logger.info("Most Reds #{country}")
+
   text = winner[1].to_s + " - " + country
 
   send_event('mostreds', {text: text,
@@ -29,7 +32,7 @@ def update
                           title: "Most Reds"})
 end
 
-update()
+update(logger)
 SCHEDULER.every '15m' do
-  update()
+  update(logger)
 end

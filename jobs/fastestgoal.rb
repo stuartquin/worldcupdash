@@ -1,10 +1,12 @@
 #!/bin/ruby
 require 'nokogiri'
 require 'open-uri'
+require 'logger'
+logger = Logger.new(STDOUT)
 
 # Get a Nokogiri::HTML::Document for the page we’re interested in...
 
-def update
+def update logger
   doc = Nokogiri::HTML(open('http://en.m.wikipedia.org/wiki/2014_FIFA_World_Cup_statistics'))
   rows = doc.css('ul li')
   country = nil
@@ -18,6 +20,7 @@ def update
   end
   
   country = 'Argentina'
+  logger.info("Fastest Goal #{country}")
 
   send_event('fastestgoal', {text: time + " (" + country + ")",
                              country: country,
@@ -25,9 +28,9 @@ def update
                              title: "Fastest Goal"})
 end
 
-update()
+update(logger)
 SCHEDULER.every '15m' do
-  update()
+  update(logger)
 end
 
 
