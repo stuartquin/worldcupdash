@@ -16,6 +16,8 @@ def update
       country = row.css("a")[1].text.strip
     end
   end
+  
+  country = 'Argentina'
 
   send_event('fastestgoal', {text: time + " (" + country + ")",
                              country: country,
