@@ -2,6 +2,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'logger'
+require './lib/util'
 logger = Logger.new(STDOUT)
 
 def update logger
@@ -21,6 +22,7 @@ def update logger
   sorted = counts.sort_by {|_key, value| value}
   winner = sorted.last
   country = winner[0]
+  country = Util.get_country country
 
   logger.info("Most Reds #{country}")
 

@@ -2,6 +2,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'logger'
+require './lib/util'
 logger = Logger.new(STDOUT)
 
 # Get a Nokogiri::HTML::Document for the page we’re interested in...
@@ -18,10 +19,9 @@ def update logger
       country = row.css("a")[1].text.strip
     end
   end
-  
-  country = 'Argentina'
-  logger.info("Fastest Goal #{country}")
 
+  country = Util.get_country country
+  logger.info("Fastest Goal #{country}")
   send_event('fastestgoal', {text: time + " (" + country + ")",
                              country: country,
                              image: "/" + country + ".png",

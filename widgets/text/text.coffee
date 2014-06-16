@@ -11,6 +11,7 @@ class Dashing.Text extends Dashing.Widget
     "colombia": "#FFFF00"
     "portugal": "#850B23"
     "germany": "#FFFFFF"
+    "usa": "#FFFFFF"
 
   @inverse = ["brazil", "england", "argentina", "honduras", "germany"]
 

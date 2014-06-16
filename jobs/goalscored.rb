@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'json'
 require 'logger'
+require './lib/util'
 logger = Logger.new(STDOUT)
 
 
@@ -12,6 +13,7 @@ def update logger
   data = JSON.parse(res.read).first
 
   country = data["name"]
+  country = Util.get_country country
   logger.info("Goals Scored #{country}")
 
   text = data["goalsFor"].to_s + " - " + country
