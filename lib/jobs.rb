@@ -71,6 +71,16 @@ class GoalsScored
   end
 end
 
+class FirstOwnGoal
+  def self.update 
+    country = "Brazil"
+    send_event('firstowngoal',  {text: country,
+                                 country: country,
+                                 image: "/" + country + ".png",
+                                 title: "First Own Goal"})
+  end
+end
+
 class GoalsConceded
   def self.update doc, logger
     rows = doc.css('ul li')
