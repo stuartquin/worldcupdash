@@ -5,5 +5,7 @@ SCHEDULER.every '5m', first_in: 0 do
   GoalsScored.update
   GoldenBoot.update
   PredictedWinner.update
-  MostReds.update
+
+  # Bootstraps FastestGoal and MostReds
+  LoadFromWiki.update
 end
