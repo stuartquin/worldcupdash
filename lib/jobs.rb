@@ -49,6 +49,50 @@ class MostReds
   end
 end
 
+class GoalsScored
+  def self.update doc, logger
+    rows = doc.css('ul li')
+    country = nil
+    count = nil
+
+    rows.each do |row|
+      if row.text.strip.start_with?('Most goals scored by a team')
+        count = row.css("b").text.strip
+        country = row.css("a")[0].text.strip
+      end
+    end
+    country = Util.get_country country
+    logger.info("Goals Scored #{country}")
+  
+    send_event('goalscored', {text: count + " (" + country + ")",
+                              country: country,
+                              image: "/" + country + ".png",
+                              title: "Goals Scored"})
+  end
+end
+
+class GoalsConceded
+  def self.update doc, logger
+    rows = doc.css('ul li')
+    country = nil
+    count = nil
+
+    rows.each do |row|
+      if row.text.strip.start_with?('Most goals conceded by a team')
+        count = row.css("b").text.strip
+        country = row.css("a")[0].text.strip
+      end
+    end
+    country = Util.get_country country
+    logger.info("Goals Conceded #{country}")
+  
+    send_event('goalsconceded', {text: count + " (" + country + ")",
+                                 country: country,
+                                 image: "/" + country + ".png",
+                                 title: "Goals Conceded"})
+  end
+end
+
 # Only hit the wiki page once
 class LoadFromWiki
   @@logger = Logger.new(STDOUT)
@@ -56,27 +100,8 @@ class LoadFromWiki
     doc = Nokogiri::HTML(open('http://en.m.wikipedia.org/wiki/2014_FIFA_World_Cup_statistics'))
     FastestGoal.update doc, @@logger
     MostReds.update doc, @@logger
-  end
-end
-
-
-class GoalsScored
-  @@logger = Logger.new(STDOUT)
-
-  def self.update
-    api_key = ENV["KIMONO_KEY"]
-    res = open("http://worldcup.kimonolabs.com/api/teams?sort=goalsFor,-1&fields=name,goalsFor&apikey=#{api_key}")
-    data = JSON.parse(res.read).first
-  
-    country = data["name"]
-    country = Util.get_country country
-    @@logger.info("Goals Scored #{country}")
-  
-    text = data["goalsFor"].to_s + " - " + country
-    send_event('goalscored', {text: text,
-                              country: country,
-                              image: "/" + country + ".png",
-                              title: "Goals Scored"})
+    GoalsScored.update doc, @@logger
+    GoalsConceded.update doc, @@logger
   end
 end
 
@@ -111,23 +136,3 @@ class PredictedWinner
   end
 end
 
-class GoalsConceded
-  @@logger = Logger.new(STDOUT)
-
-  def self.update
-    api_key = ENV["KIMONO_KEY"]
-    res = open("http://worldcup.kimonolabs.com/api/teams?sort=goalsAgainst,-1&fields=name,goalsAgainst&apikey=#{api_key}")
-    data = JSON.parse(res.read).first
-    
-    country = data["name"]
-    country = Util.get_country country
-    @@logger.info("Goals Conceded #{country}")
-  
-    text = data["goalsAgainst"].to_s + " - " + country
-  
-    send_event('goalsconceded', {text: text,
-                                 country: country,
-                                 image: "/" + country + ".png",
-                                 title: "Goals Conceded"})
-  end
-end
