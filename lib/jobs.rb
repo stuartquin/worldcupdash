@@ -81,6 +81,16 @@ class FirstOwnGoal
   end
 end
 
+class Skimlinks
+  def self.update 
+    country = "Skimlinks"
+    send_event('skimlinks',  {text: country,
+                                 country: country,
+                                 image: "/" + country + ".png",
+                                 title: "World Cup 2014"})
+  end
+end
+
 class GoalsConceded
   def self.update doc, logger
     rows = doc.css('ul li')

@@ -10,8 +10,14 @@ $moreinfo-color:    #000000;
 // Widget-text styles
 // ----------------------------------------------------------------------------
 .widget-text {
+  h1 {
+    padding-bottom: 25px;
+  }
+
   h3 {
     color: $title-color;
+    padding-top:25px;
+    height: 50px;
   }
 
   background-color: $background-color;

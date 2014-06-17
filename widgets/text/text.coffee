@@ -1,5 +1,6 @@
 class Dashing.Text extends Dashing.Widget
   @colours =
+    "skimlinks": "#2c95d2"
     "brazil": "#FFDF00"
     "netherlands": "#FF6600"
     "spain": "#E3000B"
